@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mừng Ngày 20/10 ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink: #ffc0cb; /* Màu hồng nhạt */
+            --light-purple: #fbcfe8; /* Màu tím nhạt */
+            --blue: #d8b4fe; /* Màu xanh tím nhạt */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow: hidden; /* Ngăn cuộn trang */
+            background: linear-gradient(-45deg, var(--pink), var(--light-purple), var(--blue));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Container chính giữa màn hình */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Tiêu đề "Thiệp mừng ngày 20/10" */
+        .title {
+            font-family: 'Pacifico', cursive;
+            font-size: clamp(2.5rem, 10vw, 4.5rem);
+            color: white;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.5s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hộp quà - ĐIỀU CHỈNH MÀU SẮC BẰNG FILTER */
+        .gift-box {
+            margin-top: 3rem;
+            cursor: pointer;
+            font-size: clamp(6rem, 20vw, 9rem);
+            opacity: 0;
+            transform: scale(0.5);
+            animation: popIn 1s ease-out 2s forwards, float 3s ease-in-out infinite 3s;
+            transition: transform 0.3s ease-in-out;
+            /* Điều chỉnh filter để chuyển màu vàng sang tông xanh ngọc */
+            /* filter: hue-rotate(180deg) saturate(200%) brightness(100%); */
+            /* Hoặc thử filter khác để đạt màu mong muốn */
+            filter: hue-rotate(1) saturate(100%) brightness(90%); 
+            /* Đây là giá trị thử nghiệm để gần với màu xanh bạn muốn. */
+            /* Có thể cần điều chỉnh thêm 'hue-rotate', 'saturate', 'brightness' nếu muốn màu chính xác hơn. */
+        }
+        .gift-box:hover {
+            transform: scale(1.1);
+            animation-play-state: paused;
+        }
+
+        /* Lời nhắn "Bấm vào hộp quà nhé" */
+        .prompt-text {
+            color: white;
+            margin-top: 1rem;
+            font-size: 1.125rem;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease-out 2.5s forwards;
+        }
+
+        @keyframes popIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* --- HIỆU ỨNG MƯA RƠI --- */
+        .falling-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Cho phép click xuyên qua lớp này */
+            z-index: 5;
+        }
+        .falling-item {
+            position: absolute;
+            top: -10vh; /* Bắt đầu từ bên trên màn hình */
+            font-size: 2rem;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh); /* Rơi xuống dưới màn hình */
+            }
+        }
+        
+        /* --- MODAL HIỆN ẢNH --- */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.75);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: all 0.3s ease-out;
+        }
+        .modal.show .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .close-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            color: #4b5563;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-button:hover {
+            color: #5b04e6;
+        }
+        .modal-image {
+            border-radius: 6px;
+            width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+        .modal-text {
+            text-align: center;
+            color: #131414;
+            margin-top: 0.75rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="falling-container" id="fallingContainer"></div>
+
+    <div class="container">
+        <h1 class="title">Thiệp mừng ngày 20/10</h1>
+        
+        <div id="giftBox" class="gift-box">
+            🎁
+        </div>
+        
+        <p class="prompt-text">Bấm vào hộp quà nhé</p>
+    </div>
+
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span id="closeButton" class="close-button">&times;</span>
+            <img id="giftImage" src="" alt="Quà 20/10" class="modal-image">
+            <p class="modal-text">Chúc bạn một ngày 20/10 thật vui vẻ và hạnh phúc nhé!</p>
+        </div>
+    </div>
+
+    <script>
+        const giftBox = document.getElementById('giftBox');
+        const imageModal = document.getElementById('imageModal');
+        const giftImage = document.getElementById('giftImage');
+        const closeButton = document.getElementById('closeButton');
+        const fallingContainer = document.getElementById('fallingContainer');
+
+        const imageUrl = "./qua2010.jpg"; // Tên file ảnh của bạn
+
+        // Hàm tạo hiệu ứng mưa
+        function createFallingRain() {
+            // Mảng chứa các icon sẽ rơi
+            const items = ['❤️', '🌸', '🎁', '💖', '💐'];
+
+            setInterval(() => {
+                const fallingItem = document.createElement('div');
+                fallingItem.classList.add('falling-item');
+
+                // Chọn ngẫu nhiên một icon
+                fallingItem.innerText = items[Math.floor(Math.random() * items.length)];
+
+                // Vị trí rơi, kích thước và tốc độ ngẫu nhiên
+                fallingItem.style.left = Math.random() * 100 + 'vw';
+                fallingItem.style.fontSize = Math.random() * 1.5 + 1 + 'rem'; // Kích thước từ 1rem đến 2.5rem
+                fallingItem.style.animationDuration = Math.random() * 3 + 4 + 's'; // Tốc độ rơi từ 4s đến 7s
+                fallingItem.style.opacity = Math.random() * 0.5 + 0.5; // Độ mờ ngẫu nhiên
+
+                fallingContainer.appendChild(fallingItem);
+
+                // Xóa icon sau khi nó rơi xong để tiết kiệm tài nguyên
+                setTimeout(() => {
+                    fallingItem.remove();
+                }, 7000); // Thời gian xóa lớn hơn thời gian rơi tối đa
+            }, 300); // Cứ 300ms tạo một icon mới
+        }
+
+        // --- BẮT ĐẦU HIỆU ỨNG MƯA NGAY KHI TRANG TẢI XONG ---
+        document.addEventListener('DOMContentLoaded', createFallingRain);
+
+        // Sự kiện khi bấm vào hộp quà
+        giftBox.addEventListener('click', () => {
+            // Ẩn hộp quà và lời nhắn đi
+            giftBox.style.display = 'none';
+            document.querySelector('.prompt-text').style.display = 'none';
+
+            // Hiển thị ảnh quà
+            giftImage.src = imageUrl;
+            imageModal.style.display = 'flex';
+            setTimeout(() => imageModal.classList.add('show'), 10);
+        });
+
+        // Hàm đóng modal
+        const closeModal = () => {
+            imageModal.classList.remove('show');
+            setTimeout(() => {
+                imageModal.style.display = 'none';
+            }, 300);
+        };
+
+        // Gán sự kiện cho nút đóng và click ra ngoài
+        closeButton.addEventListener('click', closeModal);
+        imageModal.addEventListener('click', (event) => {
+            if (event.target === imageModal) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
